@@ -10,26 +10,48 @@ $(function () {
   //return the event from localstorage and show them in sheduler
   for(var i=1;i<=12;i++)
   {
+    var j=0;
+    var hour = parseInt(dayjs().format("hh"));
+
+    if(hour >=1 && hour <=5)
+    {
+      hour = hour+12;
+    }
+
+    if(i >= 9 && i <= 12)
+    {
+      j=i;
+    }
+    else if(i >=1 && i <=5)
+    {
+      j=i+12;
+    }
+
 
     var data= $.parseJSON(localStorage.getItem("hour-"+i));
-    $('#hour-'+i).css("background-color", "#77dd77");
-    
-    if(data !== null && data != "")
-    {
-      
-      $('#hour-'+i).find('textarea').val($.parseJSON(localStorage.getItem("hour-"+i)));
+    //$('#hour-'+i).css("background-color", "#77dd77");
 
-      if(parseInt(dayjs().format("hh")) > i)
-      {
+    //alert("Data : " + data);
+
+    if(data !== null)
+    {
+      //alert("1st : "+i);
+      $('#hour-'+i).find('textarea').val($.parseJSON(localStorage.getItem("hour-"+i)));
+    }
+
+    if(hour > j)
+    {
+        //alert("hour > j :" + i);
         $('#hour-'+i).css("background-color", "#d3d3d3");
-      }
-      else if(parseInt(dayjs().format("hh")) == i)
-      {
+    }
+    else if(hour === j)
+    {
+        //alert("hour = j :" + i);
         $('#hour-'+i).css("background-color", "#ff6961");
-      }
     }
     else
     {
+       //alert("2nd : " + i);
       $('#hour-'+i).css("background-color", "#77dd77");
     }
     
