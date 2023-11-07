@@ -11,13 +11,35 @@ $('#currentDay').text(reformatDate);
 // in the html.
 $(function () {
   
+  //alert(dayjs().format("hhA"));
+  //alert(parseInt(dayjs().format("hh")));
   for(var i=1;i<=12;i++)
   {
-    if($.parseJSON(localStorage.getItem("hour-"+i))!== null)
+
+    var data= $.parseJSON(localStorage.getItem("hour-"+i));
+    
+    if(data !== null && data != "")
     {
+      
       $('#hour-'+i).find('textarea').val($.parseJSON(localStorage.getItem("hour-"+i)));
+      $('#hour-'+i).css("background-color", "#ff6961");
+      
+      if(parseInt(dayjs().format("hh")) <= i)
+      {
+        $('#hour-'+i).css("background-color", "#d3d3d3");
+      }
       
     }
+    else if(data == "" && data !== null)
+    {
+      $('#hour-'+i).css("background-color", "#77dd77");
+    }
+    else
+    {
+      $('#hour-'+i).css("background-color", "#77dd77");
+    }
+
+    
   }
 
   $('button').on('click', function (event) {
@@ -35,6 +57,7 @@ $(function () {
           //$('#hour-'+i).find('textarea').val(localStorage.setItem(attr,JSON.stringify(storedata)));
           var storedata = $('#hour-'+i).find('textarea').val();
           localStorage.setItem('hour-'+i,JSON.stringify(storedata));
+          
         }
     }
 
